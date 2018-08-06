@@ -1,0 +1,95 @@
+spring:
+  profiles:
+    active: dev
+server:
+  port: 80
+  compression:
+    enabled: true
+    mime-types: application/json;charset=UTF-8
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    id-type: 2
+    field-strategy: 2
+    db-column-underline: true
+    refresh-mapper: true
+    logic-delete-value: 1
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+    ## dev 开发, test测试部署, pro 生产部署
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://${dbServer:127.0.0.1}/demo?useSSL=false&allowMultiQueries=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+logging:
+  level:
+    com.wpg: debug
+
+custom:
+  redis:
+    hostname: 127.0.0.1
+    maxTotal: 10
+    minIdle: 1
+    testOnBorrow: true
+    maxWait: 5000
+    testOnReturn: true
+    testWhileIdle: true
+
+
+---
+spring:
+  profiles: pro
+  datasource:
+    url: jdbc:mysql://${dbServer:127.0.0.1}/demo?useSSL=false&allowMultiQueries=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+logging:
+  level:
+    com.wpg: info
+
+custom:
+  redis:
+    hostname: 127.0.0.1
+    maxTotal: 10
+    minIdle: 1
+    testOnBorrow: true
+    maxWait: 5000
+    testOnReturn: true
+    testWhileIdle: true
+
+
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://${dbServer:127.0.0.1}/demo?useSSL=false&allowMultiQueries=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+logging:
+  level:
+    com.wpg: info
+
+custom:
+  redis:
+    hostname: 127.0.0.1
+    maxTotal: 10
+    minIdle: 1
+    testOnBorrow: true
+    maxWait: 5000
+    testOnReturn: true
+    testWhileIdle: true
